@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 
 //lex.yy.h
 int yylex();
@@ -9,7 +9,6 @@ extern FILE *yyin;
 
 int isRunning(void);
 void initMe(void);
-int getLineNumber(void);
 
 int main(int argc, char** argv)
 {
@@ -64,7 +63,6 @@ int main(int argc, char** argv)
   }
 
   printf("NOTA %d\n\n",nota);  
-  printf("number of lines %d\n\n", getLineNumber());  
 
   fprintf(stderr,"NOTA %d\n\n",nota);  
 

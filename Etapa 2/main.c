@@ -13,7 +13,6 @@ int getLineNumber(void);
 
 int main(int argc, char** argv)
 {
-
   FILE *gold = 0;
   int token = 0;
   int answar = 0;
@@ -27,13 +26,13 @@ int main(int argc, char** argv)
     printf("call: ./etapa1 input.txt output.txt \n");
     exit(1);
   }
-  
+
   if (0==(yyin = fopen(argv[1],"r")))
   {
     printf("Cannot open file %s... \n",argv[1]);
     exit(1);
   }
-  
+
   if (0==(gold = fopen(argv[2],"r")))
   {
     printf("Cannot open file %s... \n",argv[2]);
@@ -58,7 +57,7 @@ int main(int argc, char** argv)
     }
     else
       fprintf(stderr,"\n%d=ERROR(%s,%d,%d) ",i,yytext,token,answar );
-    
+
     ++i;
 
   }
@@ -68,4 +67,5 @@ int main(int argc, char** argv)
 
   fprintf(stderr,"NOTA %d\n\n",nota);  
 
+  return 0;
 }

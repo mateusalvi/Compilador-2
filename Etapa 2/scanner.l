@@ -20,30 +20,30 @@
  
 %%
 
-"char"    { return KW_CHAR; }
-"int"     { return KW_INT; }
-"real"    { return KW_REAL; }
-"bool"    { return KW_BOOL; }
-"if"      { return KW_IF; }
-"then"    { return KW_THEN; }
-"else"    { return KW_ELSE; }
-"loop"    { return KW_LOOP ; }
-"input"   { return KW_INPUT; }
-"output"  { return KW_OUTPUT; }
-"return"  { return KW_RETURN; }
+"char"                { return KW_CHAR; }
+"int"                 { return KW_INT; }
+"real"                { return KW_REAL; }
+"bool"                { return KW_BOOL; }
+"if"                  { return KW_IF; }
+"then"                { return KW_THEN; }
+"else"                { return KW_ELSE; }
+"loop"                { return KW_LOOP ; }
+"input"               { return KW_INPUT; }
+"output"              { return KW_OUTPUT; }
+"return"              { return KW_RETURN; }
 
-[0-9]+"."[0-9]+ { HashInsert(LIT_REAL, yytext); return LIT_REAL; }
-[0-9]+	                                                                              { HashInsert(LIT_INT, yytext);return LIT_INT; }
-[a-zA-Z_.]+                                                                           { HashInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER; }
-\"(.|^\")+\"                                                                                { HashInsert(LIT_STRING, yytext);return LIT_STRING; }
-\'(.|^\')+\'                                                                                { HashInsert(LIT_CHAR, yytext);return LIT_CHAR; }
+[0-9]+"."[0-9]+       { HashInsert(LIT_REAL, yytext); return LIT_REAL; }
+[0-9]+	              { HashInsert(LIT_INT, yytext);return LIT_INT; }
+[a-zA-Z_.]+           { HashInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER; }
+\"(.|^\")+\"          { HashInsert(LIT_STRING, yytext);return LIT_STRING; }
+\'(.|^\')+\'          { HashInsert(LIT_CHAR, yytext);return LIT_CHAR; }
 
 "<="                  { return OPERATOR_LE; }
 ">="                  { return OPERATOR_GE; }
 "=="                  { return OPERATOR_EQ; }
 "!="                  { return OPERATOR_DIF; }
 
-[-,;()\]\[=+/%<>&|~\*}{]  { return yytext[0]; }
+[-,;()\]\[=+/%<>&|~\*}{] { return yytext[0]; }
 
 "\n"                  { LineNumber++; }
 [ \t\s]+              { }
@@ -88,7 +88,6 @@ int isRunning(void)
 int yywrap()
 {
     Running = 0;
-    //printf("%d", LineNumber);
     return 1;
 }
 

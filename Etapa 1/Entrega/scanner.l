@@ -35,8 +35,8 @@
 [0-9]+"."[0-9]+ { HashInsert(LIT_REAL, yytext); return LIT_REAL; }
 [0-9]+	                                                                              { HashInsert(LIT_INT, yytext);return LIT_INT; }
 [a-zA-Z_.]+                                                                           { HashInsert(TK_IDENTIFIER, yytext); return TK_IDENTIFIER; }
-\"(.|^\")+\"                                                                                { HashInsert(LIT_STRING, yytext);return LIT_STRING; }
-\'(.|^\')+\'                                                                                { HashInsert(LIT_CHAR, yytext);return LIT_CHAR; }
+\".+\"                                                                                { HashInsert(LIT_STRING, yytext);return LIT_STRING; }
+\'.+\'                                                                                { HashInsert(LIT_CHAR, yytext);return LIT_CHAR; }
 
 "<="                  { return OPERATOR_LE; }
 ">="                  { return OPERATOR_GE; }
