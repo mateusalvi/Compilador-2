@@ -11,7 +11,6 @@ extern int isRunning(void);
 extern void initMe(void);
 extern int getLineNumber(void);
 extern int yyparse(void);
-extern int yydebug;
 
 int main(int argc, char** argv)
 {
@@ -20,9 +19,8 @@ int main(int argc, char** argv)
   //int answar = 0;
   //int nota = 0;
   //int i=1;
-  yydebug = 1;
 
-  // fprintf(stderr,"Rodando main do prof. \n");
+  fprintf(stderr,"Rodando main do prof. \n");
 
   if (argc < 2 || argc > 2)
   {

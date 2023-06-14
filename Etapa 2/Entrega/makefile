@@ -9,7 +9,7 @@
 
 etapa2: lex.yy.c hashtable.c scanner.l parser.y main.c parser.tab.o
 	gcc -c lex.yy.c main.c parser.tab.c
-	gcc -o etapa2 main.c lex.yy.o hashtable.c parser.tab.o
+	gcc -o etapa2 main.c lex.yy.o hashtable.c parser.tab.o -lfl
 	
 lex.yy.c: scanner.l
 	flex scanner.l
