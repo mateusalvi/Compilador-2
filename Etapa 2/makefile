@@ -6,16 +6,23 @@
 # In our case, you probably need #include "hash.c" at the beginning
 # and #include "main.c" in the last part of the scanner.l
 #
+etapa2: y.tab.o lex.yy.o main.o hashtable.o
+	gcc -o etapa2  y.tab.o lex.yy.o main.o hashtable.o
 
-etapa2: lex.yy.c hashtable.c scanner.l parser.y main.c parser.tab.o
-	gcc -c lex.yy.c main.c parser.tab.c
-	gcc -o etapa2 main.c lex.yy.o hashtable.c parser.tab.o
-	
+hashtable.o: hashtable.c
+	gcc -c hashtable.c
+
+y.tab.o: y.tab.c
+	gcc -c y.tab.c
+
+y.tab.c: parser.y
+	yacc -d -v parser.y
+
+lex.yy.o: lex.yy.c
+	gcc -c lex.yy.c
+
 lex.yy.c: scanner.l
 	flex scanner.l
 
-parser.tab.c: parser.y
-	bison -v parser.y
-
 clean:
-	rm lex.yy.c parser.tab.c parser.tab.o lex.yy.o etapa2 parser.output main.o
+	rm *.o lex.yy.c y.tab.c y.tab.o lex.yy.o etapa2 y.output main.o

@@ -53,8 +53,8 @@ extern int yydebug;
 program: declarations
        ;
 
-declarations: declaration  declarations 
-            |
+declarations: declaration declarations 
+            | 
             ;
 
 declaration: type TK_IDENTIFIER '=' literal ';'
@@ -68,53 +68,61 @@ type: KW_INT
     | KW_BOOL
     ;
 
-vectorInicialization: literal vectorInicialization
-                    | 
+vectorInicialization:
+                    | literal vectorInicialization
                     ;
 
 literal: LIT_INT  
        | LIT_REAL
        | LIT_CHAR 
-       | LIT_STRING
        ;
 
 block: '{' commandList '}'
      ;
 
-parameters: parameter parameters
-          | 
+parameters:
+          | parameter parametersTail
           ;
+
+parametersTail:
+              | ',' parameter parametersTail
+              ;
 
 parameter: type TK_IDENTIFIER
          ;
 
-command: flow
+command: KW_IF '(' expression ')' command KW_ELSE command
+       | KW_IF '(' expression ')' command
+       | KW_IF '(' expression ')' KW_LOOP command
        | KW_RETURN expression ';'
-       | KW_OUTPUT LIT_STRING ';'
+       | KW_OUTPUT outputParameters ';'
        | block
        | ';'
        | TK_IDENTIFIER '[' expression ']' '=' expression ';'
        | TK_IDENTIFIER '=' expression ';'
        ;
 
-commandList: command commandList
-           |
+outputParameters: expression outputParametersTail
+                | LIT_STRING outputParametersTail
+                ;
+
+outputParametersTail:
+                    | ',' outputParameters outputParametersTail
+                    ;
+
+commandList:
+           | command commandList
            ;
 
 functionCall: TK_IDENTIFIER '(' expressionList ')'
             ;
 
-expressionList: expression ',' expressionList
-              | expression
+expressionList: 
+              | expression expressionListTail
               ;
 
-flow: KW_IF '(' expression ')' command else
-    | KW_IF '(' expression ')' KW_LOOP command
-    ;
-
-else: 
-    | KW_ELSE command
-    ;
+expressionListTail: 
+                  | ',' expression expressionListTail
 
 expression: expression '+' expression
           | expression '-' expression
@@ -135,6 +143,7 @@ expression: expression '+' expression
           | literal
           | TK_IDENTIFIER
           ;
+
 %%
 
 int yyerror(char *error)

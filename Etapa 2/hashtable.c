@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+HashTableNode* HashTable[HASH_TABLE_SIZE];
+
 void InitHashTable (void)
 {
     for(int i = 0; i < HASH_TABLE_SIZE; i++)

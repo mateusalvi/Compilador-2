@@ -40,7 +40,6 @@ typedef struct HashTableNode
     struct HashTableNode* NextHashNode;
 } HashTableNode;
 
-HashTableNode* HashTable[HASH_TABLE_SIZE];
 void InitHashTable(void);
 void HashAdress(char *text);
 HashTableNode* hashFind(char *text, int address);

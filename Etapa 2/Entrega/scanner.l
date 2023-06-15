@@ -7,7 +7,7 @@
 **************************************/
 
     #include "hashtable.h"
-    #include "tokens.h"
+    #include "y.tab.h"
 
     int LineNumber = 1;
     int Running = 1;

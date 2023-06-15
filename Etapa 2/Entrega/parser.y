@@ -5,6 +5,7 @@
 ***************************************
 ****** Amusing * the * amazing ********
 **************************************/
+#define YYDEBUG 1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +15,7 @@
 int yyerror(char *s);
 int yylex();
 extern int getLineNumber(void);
+extern int yydebug;
 
 %}
 
@@ -51,11 +53,11 @@ extern int getLineNumber(void);
 program: declarations
        ;
 
-declarations: declaration declarations
-            | { printf("Current terminal: \n"); fprintf(stderr, "Char: %c, Int: %d\n", $$, $$); }
+declarations: declaration  declarations 
+            |
             ;
 
-declaration: type TK_IDENTIFIER '=' literal ';' { printf("Current terminal: \n"); fprintf(stderr, "Char: %c, Int: %d\n", $$, $$); }
+declaration: type TK_IDENTIFIER '=' literal ';'
            | type TK_IDENTIFIER '(' parameters ')' block
            | type TK_IDENTIFIER '[' LIT_INT ']' vectorInicialization ';'
            ;
@@ -66,40 +68,38 @@ type: KW_INT
     | KW_BOOL
     ;
 
-vectorInicialization:
-                    | literal vectorInicialization
+vectorInicialization: literal vectorInicialization
+                    | 
                     ;
 
-literal: LIT_INT
+literal: LIT_INT  
        | LIT_REAL
-       | LIT_CHAR
+       | LIT_CHAR 
        | LIT_STRING
        ;
 
 block: '{' commandList '}'
      ;
 
-parameters:
-          | parameter parameters 
+parameters: parameter parameters
+          | 
           ;
 
 parameter: type TK_IDENTIFIER
          ;
 
-command: 
-       | flow
-       | KW_RETURN expression 
-       | KW_OUTPUT LIT_STRING
+command: flow
+       | KW_RETURN expression ';'
+       | KW_OUTPUT LIT_STRING ';'
        | block
-       | TK_IDENTIFIER '[' expression ']' '=' expression
-       | TK_IDENTIFIER '=' expression 
+       | ';'
+       | TK_IDENTIFIER '[' expression ']' '=' expression ';'
+       | TK_IDENTIFIER '=' expression ';'
        ;
 
-commandList: command commandListEnd
+commandList: command commandList
+           |
            ;
-
-commandListEnd: 
-              | ';' command commandListEnd
 
 functionCall: TK_IDENTIFIER '(' expressionList ')'
             ;
