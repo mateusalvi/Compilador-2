@@ -59,7 +59,7 @@ declarations: declaration declarations
 
 declaration: type TK_IDENTIFIER '=' literal ';'
            | type TK_IDENTIFIER '(' parameters ')' block
-           | type TK_IDENTIFIER '[' LIT_INT ']' vectorInicialization ';'
+           | type TK_IDENTIFIER '[' expression ']' vectorInicialization ';'
            ;
 
 type: KW_INT
@@ -68,9 +68,9 @@ type: KW_INT
     | KW_BOOL
     ;
 
-vectorInicialization:
-                    | literal vectorInicialization
-                    ;
+vectorInicialization: literal vectorInicialization
+                    | 
+                    ;                  
 
 literal: LIT_INT  
        | LIT_REAL
@@ -97,6 +97,7 @@ command: KW_IF '(' expression ')' command KW_ELSE command
        | KW_RETURN expression ';'
        | KW_OUTPUT outputParameters ';'
        | block
+       | '{' '}'
        | ';'
        | TK_IDENTIFIER '[' expression ']' '=' expression ';'
        | TK_IDENTIFIER '=' expression ';'
@@ -141,6 +142,7 @@ expression: expression '+' expression
           | functionCall
           | KW_INPUT '(' type ')'
           | literal
+          | TK_IDENTIFIER '[' expression ']'
           | TK_IDENTIFIER
           ;
 

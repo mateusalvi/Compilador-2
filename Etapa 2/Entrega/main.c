@@ -35,6 +35,12 @@ int main(int argc, char** argv)
     printf("Cannot open file %s... \n",argv[1]);
     exit(1);
   }
+  
+  // while(isRunning())
+  // {
+  //   token = yylex();      
+  //   printf("Token: %d - %s\n", token, yytext);
+  // }
 
   initMe();
 
@@ -69,8 +75,9 @@ int main(int argc, char** argv)
 
   // }
 
-  //printf("NOTA %d\n\n",nota);  
-  printf("number of lines %d\n\n", getLineNumber());  
+  //printf("NOTA %d\n\n",nota); 
+  printf("File parsed! Returning 0 for success\n"); 
+  printf("number of lines %d\n", getLineNumber());  
   //fprintf(stderr,"NOTA %d\n\n",nota);  
 
   return 0;
