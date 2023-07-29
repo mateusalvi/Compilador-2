@@ -17,6 +17,15 @@ void CheckOperands(AstNode *node);
 void CheckUndeclared();
 bool HasSameDatatype(int type1, int type2);
 bool CheckVectorElements(AstNode *node, int dataType);
-int isInt(int type);
+bool IsCompatibleForOperation(int type1, int type2);
+bool isInt(int type);
+bool isReal(int type);
+bool isChar(int type);
+bool isReal(int type);
+bool isArithmetic(int type);
+bool isRelational(int type);
+bool isLogic(int type);
+bool isBool(int type);
+void CheckUsage(AstNode *node);
 
 #endif

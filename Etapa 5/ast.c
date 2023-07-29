@@ -205,7 +205,7 @@ void uncompileAST(AstNode *node, FILE *file)
             fprintf(file, ")");
             break;
 
-        case AST_SUM :
+        case AST_ADD :
             uncompileAST(node->children[0], file);
             fprintf(file, " + ");
             uncompileAST(node->children[1], file);
@@ -309,12 +309,13 @@ void PrintTree(int level, AstNode *node)
 {
     if(node == NULL)
         return;
-  
-    fprintf(stderr, "Level %d ", level);
-        for(int i = 0; i < level; i++)
-            fprintf(stderr, "  ");
 
-    switch(node->type){
+    fprintf(stderr, "Level %d ", level);
+    for(int i = 0; i < level; i++)
+        fprintf(stderr, "  ");
+
+    switch(node->type)
+    {
         case AST_DECLIST: fprintf(stderr, "AST_DECLIST, %d", node->type);  break;
         case AST_VARDEC: fprintf(stderr, "AST_VARDEC, %d", node->type);  break;
         case AST_VECDEC: fprintf(stderr, "AST_VECDEC, %d", node->type);  break;
@@ -346,7 +347,7 @@ void PrintTree(int level, AstNode *node)
         case AST_INPUT: fprintf(stderr, "AST_INPUT, %d", node->type);  break;
         case AST_VEC: fprintf(stderr, "AST_VEC, %d", node->type);  break;
         case AST_FUNCALL: fprintf(stderr, "AST_FUNCALL, %d", node->type);  break;
-        case AST_SUM: fprintf(stderr, "AST_SUM, %d", node->type);  break;
+        case AST_ADD: fprintf(stderr, "AST_ADD, %d", node->type);  break;
         case AST_SUB: fprintf(stderr, "AST_SUB, %d", node->type);  break;
         case AST_MULT: fprintf(stderr, "AST_MULT, %d", node->type);  break;
         case AST_DIV: fprintf(stderr, "AST_DIV, %d", node->type);  break;
@@ -363,15 +364,16 @@ void PrintTree(int level, AstNode *node)
         case AST_EXPLIST: fprintf(stderr, "AST_EXPLIST, %d", node->type);  break;
         case AST_EXPLISTTAIL: fprintf(stderr, "AST_EXPLISTTAIL, %d", node->type);  break;
         case AST_BLANKBLOCK: fprintf(stderr, "AST_BLANKBLOCK, %d", node->type); break;
-        //case AST_COMMA: fprintf(stderr, "AST_COMMA");  break;
         default : fprintf(stderr, "-------- AST ERROR with type %d -------- ", node->type);  break;
-  }
+    }
 
     if(node->symbol != NULL)
         fprintf(stderr, ", %s\n", node->symbol->text);
     else
         fprintf(stderr, "\n");
+        
+    level++;
 
     for(int i = 0; i < 4; i++)
-        PrintTree(level++, node->children[i]);
+        PrintTree(level, node->children[i]);
 }

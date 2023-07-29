@@ -146,7 +146,6 @@ void CheckChildTypes(AstNode *node)
     switch (node->type)
     {
     case AST_ATTRIB:
-        if(node->type)
         break;
     
     default:
@@ -342,7 +341,7 @@ bool isReal(int type)
 
 bool isArithmetic(int type)
 {
-    return (type == AST_SUM || type == AST_SUB || type == AST_DIV || type == AST_MULT);
+    return (type == AST_ADD || type == AST_SUB || type == AST_DIV || type == AST_MULT);
 }
 
 bool isRelational(int type)

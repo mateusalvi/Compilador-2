@@ -1,0 +1,10 @@
+\\ UFRGS - Compiladores - Marcelo Johann - 2023/1
+
+int a = 1;
+int b = 2;
+int c = 0;
+
+int foo()
+{
+  c = a + b;
+}

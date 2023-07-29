@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.5.1.  */
+/* A Bison parser, made by GNU Bison 3.8.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -31,8 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
 
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
@@ -44,35 +45,44 @@
 extern int yydebug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    KW_INT = 258,
-    KW_REAL = 259,
-    KW_CHAR = 260,
-    KW_BOOL = 261,
-    KW_IF = 262,
-    KW_THEN = 263,
-    KW_ELSE = 264,
-    KW_LOOP = 265,
-    KW_INPUT = 266,
-    KW_OUTPUT = 267,
-    KW_RETURN = 268,
-    OPERATOR_LE = 269,
-    OPERATOR_GE = 270,
-    OPERATOR_EQ = 271,
-    OPERATOR_DIF = 272,
-    TK_IDENTIFIER = 273,
-    LIT_INT = 274,
-    LIT_REAL = 275,
-    LIT_CHAR = 276,
-    LIT_STRING = 277,
-    TOKEN_ERROR = 278
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    KW_INT = 258,                  /* KW_INT  */
+    KW_REAL = 259,                 /* KW_REAL  */
+    KW_CHAR = 260,                 /* KW_CHAR  */
+    KW_BOOL = 261,                 /* KW_BOOL  */
+    KW_IF = 262,                   /* KW_IF  */
+    KW_THEN = 263,                 /* KW_THEN  */
+    KW_ELSE = 264,                 /* KW_ELSE  */
+    KW_LOOP = 265,                 /* KW_LOOP  */
+    KW_INPUT = 266,                /* KW_INPUT  */
+    KW_OUTPUT = 267,               /* KW_OUTPUT  */
+    KW_RETURN = 268,               /* KW_RETURN  */
+    OPERATOR_LE = 269,             /* OPERATOR_LE  */
+    OPERATOR_GE = 270,             /* OPERATOR_GE  */
+    OPERATOR_EQ = 271,             /* OPERATOR_EQ  */
+    OPERATOR_DIF = 272,            /* OPERATOR_DIF  */
+    TK_IDENTIFIER = 273,           /* TK_IDENTIFIER  */
+    LIT_INT = 274,                 /* LIT_INT  */
+    LIT_REAL = 275,                /* LIT_REAL  */
+    LIT_CHAR = 276,                /* LIT_CHAR  */
+    LIT_STRING = 277,              /* LIT_STRING  */
+    TOKEN_ERROR = 278              /* TOKEN_ERROR  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Tokens.  */
+/* Token kinds.  */
+#define YYEMPTY -2
+#define YYEOF 0
+#define YYerror 256
+#define YYUNDEF 257
 #define KW_INT 258
 #define KW_REAL 259
 #define KW_CHAR 260
@@ -104,7 +114,7 @@ union YYSTYPE
        AstNode *node;
        HashTableNode *symbol;
 
-#line 108 "y.tab.h"
+#line 118 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -115,6 +125,8 @@ typedef union YYSTYPE YYSTYPE;
 
 extern YYSTYPE yylval;
 
+
 int yyparse (void);
+
 
 #endif /* !YY_YY_Y_TAB_H_INCLUDED  */

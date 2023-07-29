@@ -79,11 +79,15 @@ AstNode *ASTRoot;
 
 program: declarations { 
                         ASTRoot = $$;
-                        fprintf(stderr, "\n------------ PRINTING TREE ------------\n"); 
+                        fprintf(stderr, "\n-------------- PRINTING TREE --------------\n"); 
                         PrintTree(0, ASTRoot);
-                        fprintf(stderr, "---------- END OF PRINT TREE ----------\n\n");
+                        fprintf(stderr, "------------ END OF PRINT TREE ------------\n\n\n");
+                        fprintf(stderr, "---------- ERRORS (IF APLICABLE) ----------\n");
                         CheckAndSetDeclarations(ASTRoot);
                         CheckUndeclared();
+                        CheckOperands(ASTRoot);
+                        //CheckUsage(ASTRoot);
+                        fprintf(stderr, "-------------- END OF ERRORS --------------\n\n");
                       }
        ;
 
@@ -167,7 +171,7 @@ expression: expression '+' expression { $$ = CreateNode(AST_SUM, 0, $1, $3, 0, 0
           | expression '<' expression { $$ = CreateNode(AST_LESS, 0, $1, $3, 0, 0); }
           | expression '&' expression { $$ = CreateNode(AST_AND, 0, $1, $3, 0, 0); }
           | expression '|' expression { $$ = CreateNode(AST_OR, 0, $1, $3, 0, 0); }
-          | expression '~' expression { $$ = CreateNode(AST_NOT, 0, $1, $3, 0, 0); }
+          | '~' expression { $$ = CreateNode(AST_NOT, 0, $2, 0, 0, 0); }
           | expression OPERATOR_DIF expression { $$ = CreateNode(AST_DIF, 0, $1, $3, 0, 0); }
           | expression OPERATOR_EQ expression { $$ = CreateNode(AST_EQ, 0, $1, $3, 0, 0); }
           | expression OPERATOR_GE expression { $$ = CreateNode(AST_GE, 0, $1, $3, 0, 0); }

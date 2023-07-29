@@ -11,6 +11,7 @@
 #include "ast.h"
 #include "hashtable.h"
 #include "semantic.h"
+#include "tacs.h"
 
 int yyerror(char *s);
 int yylex();
@@ -85,9 +86,10 @@ program: declarations {
                         fprintf(stderr, "---------- ERRORS (IF APLICABLE) ----------\n");
                         CheckAndSetDeclarations(ASTRoot);
                         CheckUndeclared();
-                        CheckOperands(ASTRoot);
+                        //CheckOperands(ASTRoot);
                         //CheckUsage(ASTRoot);
                         fprintf(stderr, "-------------- END OF ERRORS --------------\n\n");
+                        TacPrintBackwards(GenerateCode(ASTRoot));
                       }
        ;
 
@@ -163,7 +165,7 @@ expressionList: { $$ = 0; }
 expressionListTail: { $$ = 0; }
                   | ',' expression expressionListTail { $$ = CreateNode(AST_EXPLISTTAIL, 0, $2, $3, 0, 0); }
 
-expression: expression '+' expression { $$ = CreateNode(AST_SUM, 0, $1, $3, 0, 0); }
+expression: expression '+' expression { $$ = CreateNode(AST_ADD, 0, $1, $3, 0, 0); }
           | expression '-' expression { $$ = CreateNode(AST_SUB, 0, $1, $3, 0, 0); }
           | expression '/' expression { $$ = CreateNode(AST_DIV, 0, $1, $3, 0, 0); }
           | expression '*' expression { $$ = CreateNode(AST_MULT, 0, $1, $3, 0, 0); }

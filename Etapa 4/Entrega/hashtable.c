@@ -54,12 +54,32 @@ HashTableNode* HashInsert(int type, char* text)
     newNode = (HashTableNode*) calloc(1, sizeof(HashTableNode));
     newNode->type = type;
 
-    if(newNode->type == SYMBOL_CHAR) newNode->dataType = DATATYPE_CHAR;
-    else if(newNode->type == SYMBOL_INT) newNode->dataType = DATATYPE_INT;
-        else if(newNode->type == SYMBOL_BOOL) newNode->dataType = DATATYPE_INT;
-    else if(newNode->type == SYMBOL_REAL) newNode->dataType = DATATYPE_REAL;
-    else if(newNode->type == SYMBOL_STRING) newNode->dataType = DATATYPE_STRING;
-    
+    switch (newNode->type)
+    {
+        case SYMBOL_CHAR:
+            newNode->dataType = DATATYPE_CHAR;
+            break;
+
+        case SYMBOL_INT:
+            newNode->dataType = DATATYPE_INT;
+            break;
+
+        case SYMBOL_BOOL:
+            newNode->dataType = DATATYPE_BOOL;
+            break;
+
+        case SYMBOL_REAL:
+            newNode->dataType = DATATYPE_REAL;
+            break;
+
+        case SYMBOL_STRING:
+            newNode->dataType = DATATYPE_STRING;
+            break;
+
+        default:
+            break;
+    }
+
     newNode->text = calloc(strlen(text) + 1, sizeof(char));
 
     strcpy(newNode->text, text);
@@ -103,7 +123,7 @@ int HashCheckDeclaration(void)
             {
                 if(node->type == SYMBOL_IDENTIFIER)
                 {
-                    fprintf(stderr, "Identifier %s was not declared.\n", node->text);
+                    fprintf(stderr, "Identifier %s was not declared!\n", node->text);
                     undeclared++;
                 }
             }
