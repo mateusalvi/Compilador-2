@@ -180,7 +180,7 @@ void uncompileAST(AstNode *node, FILE *file)
         case AST_IFLOOP :
             fprintf(file, "if(");
             uncompileAST(node->children[0], file);
-            fprintf(file, ") loop");
+            fprintf(file, ") loop ");
             uncompileAST(node->children[1], file);
             break;
 
@@ -311,6 +311,7 @@ void PrintTree(int level, AstNode *node)
         return;
 
     fprintf(stderr, "Level %d ", level);
+
     for(int i = 0; i < level; i++)
         fprintf(stderr, "  ");
 
@@ -372,8 +373,8 @@ void PrintTree(int level, AstNode *node)
     else
         fprintf(stderr, "\n");
         
-    level++;
+    //level++;
 
     for(int i = 0; i < 4; i++)
-        PrintTree(level, node->children[i]);
+        PrintTree(level+1, node->children[i]);
 }

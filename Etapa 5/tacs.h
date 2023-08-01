@@ -12,15 +12,27 @@ enum TACTYPES
     TAC_MULT,
     TAC_DIV,
     TAC_GREATER,
-    TAC_MINOR,
-    TAC_GREATEREQ,
-    TAC_MINOREQ,
+    TAC_LESS,
+    TAC_GE,
+    TAC_LE,
     TAC_DIFFERENCE,
     TAC_EQUAL,
     TAC_NOT,
     TAC_AND,
     TAC_OR,
-    TAC_
+    TAC_DIF,
+    TAC_EQ,
+    TAC_MOVE,
+    TAC_BEGINFUNC,
+    TAC_ENDFUNC,
+    TAC_VECATTRIB,
+    TAC_JUMPFALSE,
+    TAC_JUMPELSE,
+    TAC_LABEL,
+    TAC_IF,
+    TAC_IFELSE,
+    TAC_IFLOOP,
+    TAC_FUNCALL
 };
 
 typedef struct tac_node
@@ -38,6 +50,5 @@ void TacPrint(tac_node* tac);
 void TacPrintBackwards(tac_node* tac);
 tac_node* GenerateCode(AstNode* node);
 tac_node* TacJoin(tac_node* list1, tac_node* list2);
-
 
 #endif

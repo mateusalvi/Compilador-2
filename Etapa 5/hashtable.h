@@ -24,7 +24,8 @@ enum HASH_SYMBOLS
     DATATYPE_BOOL,
     DATATYPE_CHAR,
     DATATYPE_REAL,
-    DATATYPE_STRING
+    DATATYPE_STRING,
+    SYMBOL_LABEL
 };
 
 typedef struct HashTableNode 
@@ -41,5 +42,7 @@ HashTableNode* hashFind(char *text, int address);
 HashTableNode* HashInsert(int type, char* text);
 void HashPrint(void);
 int HashCheckDeclaration(void);
+HashTableNode* MakeTemp(void);
+HashTableNode* MakeLabel(void);
 
 #endif

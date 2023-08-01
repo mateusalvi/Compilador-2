@@ -132,3 +132,21 @@ int HashCheckDeclaration(void)
 
     return undeclared;
 }
+
+HashTableNode* MakeTemp(void)
+{
+    static int serial = 0;
+    static char buffer[256] = "";
+
+    sprintf(buffer, "H45H_T3MP:%d", serial++);
+    return HashInsert(DECLARATION_VAR, buffer);
+}
+
+HashTableNode* MakeLabel(void)
+{
+    static int serial = 0;
+    static char buffer[256] = "";
+
+    sprintf(buffer, "H45H_L4B3L:%d", serial++);
+    return HashInsert(SYMBOL_LABEL, buffer);
+}
