@@ -16,6 +16,14 @@ if( a  >  3 )a =  4 ;
 else
 a =  5 ;
 if( a  ==  3 ) loop a =  4 ;
-b = fooo();
+b = fooo( a  +  b ,  b  +  c ,  c  -  3 ,  x );
+a =  2  /  2  /  2  /  2 ;
+a =  2  *  2  *  2  *  2 ;
+a = input(int) +  3 ;
+y[ 2 ] =  1 ;
+a =  a  or  a ;
+a =  a  and  a ;
+a =  not  a ;
+return  5  +  5 ;
 }
 
