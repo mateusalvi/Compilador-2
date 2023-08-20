@@ -1,0 +1,2 @@
+tar cvzf etapa4.tgz .
+sftp mlsalvi@html.inf.ufrgs.br

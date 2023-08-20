@@ -1,0 +1,29 @@
+int a =  1 ;
+int b =  2 ;
+int c =  0 ;
+int f =  1 ;
+int y[ 3 ] 1  2  3 ;
+int fooo()
+{
+return  f ;
+}
+
+int foo(int x)
+{
+if( a  <  3 ) 
+a =  3 ;
+if( a  >  3 )a =  4 ;
+else
+a =  5 ;
+if( a  ==  3 ) loop a =  4 ;
+b = fooo( a  +  b ,  b  +  c ,  c  -  3 ,  x );
+a =  2  /  2  /  2  /  2 ;
+a =  2  *  2  *  2  *  2 ;
+a = input(int) +  3 ;
+y[ 2 ] =  1 ;
+a =  a  or  a ;
+a =  a  and  a ;
+a =  not  a ;
+return  5  +  5 ;
+}
+
