@@ -7,7 +7,7 @@
 **************************************/
 
 #define HASH_TABLE_SIZE 997
-
+#include <stdio.h>
 enum HASH_SYMBOLS
 {
     SYMBOL_IDENTIFIER,
@@ -25,7 +25,8 @@ enum HASH_SYMBOLS
     DATATYPE_CHAR,
     DATATYPE_REAL,
     DATATYPE_STRING,
-    SYMBOL_LABEL
+    SYMBOL_LABEL,
+    DECLARATION_VAR_TEMP
 };
 
 typedef struct HashTableNode 
@@ -38,11 +39,12 @@ typedef struct HashTableNode
 
 void InitHashTable(void);
 void HashAdress(char *text);
-HashTableNode* hashFind(char *text, int address);
+HashTableNode* HashFind(char *text);
 HashTableNode* HashInsert(int type, char* text);
 void HashPrint(void);
 int HashCheckDeclaration(void);
 HashTableNode* MakeTemp(void);
 HashTableNode* MakeLabel(void);
+void HashPrintASM(FILE* out);
 
 #endif

@@ -37,7 +37,8 @@ enum TACTYPES
     TAC_INPUT,
     TAC_ARGPUSH,
     TAC_VEC,
-    TAC_PARAM
+    TAC_PARAM,
+    TAC_VARDEC
 };
 
 typedef struct tac_node
@@ -55,5 +56,10 @@ void TacPrint(tac_node* tac);
 void TacPrintBackwards(tac_node* tac);
 tac_node* GenerateCode(AstNode* node);
 tac_node* TacJoin(tac_node* list1, tac_node* list2);
+
+//ASM
+tac_node* tacReverse(tac_node* tac);
+void GenerateAsm(tac_node* first);
+void ASMVarDecs(FILE* file, tac_node* tac);
 
 #endif

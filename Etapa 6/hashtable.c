@@ -133,13 +133,25 @@ int HashCheckDeclaration(void)
     return undeclared;
 }
 
+void HashPrintASM(FILE* out)
+{
+    int i;
+    HashTableNode *node;
+    for(i=0; i<HASH_TABLE_SIZE; i++)
+        for(node=HashTable[i]; node; node = node->NextHashNode)
+            if(node->type == DECLARATION_VAR_TEMP)
+                fprintf(out, "%s:\t.long\t0\n\n", node->text);
+
+}
+
 HashTableNode* MakeTemp(void)
 {
     static int serial = 0;
     static char buffer[256] = "";
 
-    sprintf(buffer, "H45H_T3MP:%d", serial++);
-    return HashInsert(DECLARATION_VAR, buffer);
+    sprintf(buffer, "H45H_T3MP%d", serial++);
+    HashTableNode* node = HashInsert(DECLARATION_VAR_TEMP, buffer);
+    return node;
 }
 
 HashTableNode* MakeLabel(void)
@@ -147,6 +159,6 @@ HashTableNode* MakeLabel(void)
     static int serial = 0;
     static char buffer[256] = "";
 
-    sprintf(buffer, "H45H_L4B3L:%d", serial++);
+    sprintf(buffer, "H45H_L4B3L%d", serial++);
     return HashInsert(SYMBOL_LABEL, buffer);
 }

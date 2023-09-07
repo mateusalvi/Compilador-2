@@ -1,0 +1,15 @@
+int ffafafafa = 0;
+real sadas = 2.1;
+bool bob = 1;
+char chacha = 'a';
+
+int main()
+{
+  ffafafafa = ffafafafa + ffafafafa;
+}
+
+int foo()
+{
+  sadas = sadas * sadas;
+  ffafafafa = sadas + ffafafafa;
+}

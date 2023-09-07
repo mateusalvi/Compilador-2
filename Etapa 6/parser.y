@@ -20,6 +20,7 @@ extern int yydebug;
 extern int SemanticErrors;
 
 AstNode *ASTRoot;
+tac_node *TAC;
 
 %}
 
@@ -89,7 +90,10 @@ program: declarations {
                         //CheckOperands(ASTRoot);
                         //CheckUsage(ASTRoot);
                         fprintf(stderr, "-------------- END OF ERRORS --------------\n\n");
-                        TacPrintBackwards(GenerateCode(ASTRoot));
+                        TAC = GenerateCode(ASTRoot);
+                        TacPrintBackwards(TAC);
+                        TAC = tacReverse(TAC);
+                        GenerateAsm(TAC);
                       }
        ;
 

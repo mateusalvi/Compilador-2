@@ -113,6 +113,9 @@ void TacPrint(tac_node* tac)
     case TAC_ARGPUSH:
         fprintf(stderr,"TAC_ARGPUSH");
         break;
+    case TAC_VARDEC:
+        fprintf(stderr,"TAC_VARDEC");
+        break;
     default:
         fprintf(stderr,"\nUNDEFINED TAC PRINT TYPE %d\n\n", tac->type);
         break;
@@ -240,6 +243,9 @@ tac_node* GenerateCode(AstNode* node)
     case AST_PARAM:
         result = TacJoin(TacCreate(TAC_PARAM, node->symbol, 0, 0), code[1]);
         break;
+    case AST_VARDEC:
+        result = TacJoin(TacCreate(TAC_VARDEC, node->symbol, node->children[1]->symbol, 0), code[1]);
+        break;
     //DEFAULT
     default:
         result = TacJoin(TacJoin(TacJoin(code[0], code[1]), code[2]), code[3]);
@@ -304,4 +310,104 @@ tac_node* TacJoin(tac_node* list1, tac_node* list2)
     }
     tac->previous = list1;
     return list2;
+}
+
+tac_node* tacReverse(tac_node* tac)
+{
+    tac_node* t = tac;
+    for(t = tac; t->previous; t = t->previous)
+        t->previous->next = t;
+    return t;
+}
+
+void ASMVarDecs(FILE* file, tac_node* tac)
+{
+    float floatValue;
+    int intValue;
+
+    fprintf(file, "%s:\n" "\t.globl %s\n" "\t.type  %s, @object\n" "\t.size  %s, 4\n"
+        , tac->res->text, tac->res->text, tac->res->text, tac->res->text);
+    
+    switch (tac->res->dataType)
+    {
+    case DATATYPE_BOOL:
+        intValue = atoll(tac->op1->text);
+        if (intValue > 0)
+            intValue = 1;
+        else
+            intValue = 0;
+
+        fprintf(file, "\t.long  %d\n", intValue);
+        break;
+
+    case DATATYPE_CHAR:
+        fprintf(file, "\t.long  %d\n", tac->op1->text[0]);
+        break;
+
+    case DATATYPE_INT:
+        fprintf(file, "\t.long  %s\n", tac->op1->text);
+        break; 
+
+    case DATATYPE_REAL: 
+        floatValue = atof(tac->op1->text);
+        fprintf(file, "\t.long  %d\n", (*((unsigned int*)&floatValue)));
+        break;
+
+    default:
+        break;
+    }
+
+    fprintf(file, "    .text\n\n");
+}
+
+void GenerateAsm(tac_node* first)
+{
+    //FIXED HEADER
+    FILE* out = fopen("out.s", "w");
+    fprintf(out, "#HEADER\n.text\n.data\n\n");
+
+    tac_node* tac;
+
+    HashPrintASM(out);
+
+    for (tac = first; tac != NULL; tac = tac->next)
+    {
+        switch (tac->type)
+        {
+        case TAC_VARDEC:
+            ASMVarDecs(out, tac);
+            break;
+
+        case TAC_BEGINFUNC:
+            fprintf(out, ".globl %s\n.type %s, @function\n", tac->res->text, tac->res->text);
+            fprintf(out, "%s:\n", tac->res->text);
+            fprintf(out, "\tpushq\t%%rbp\n" "\tmovq\t%%rsp, %%rbp\n");
+            break;
+        case TAC_ENDFUNC:
+            fprintf(out, "\tpopq\t%%rbp\n\tret\n\n");
+            break;
+
+        case TAC_MOVE:
+              fprintf(out, "\tmovl \t%s(%%rip), %%eax\n"
+                           "\tmovl \t%%eax, %s(%%rip)\n", tac->op1->text, tac->res->text);
+              break;
+
+        case TAC_MULT:
+               fprintf(out, "\tmovl\t%s(%%rip), %%eax\n"
+                            "\tmovl\t%s(%%rip), %%edx\n"
+                            "\timull\t%%eax, %%edx\n"
+                            "\tmovl\t%%edx, %s(%%rip)\n", tac->op1->text, tac->op2->text, tac->res->text);
+               break;
+
+        case TAC_ADD:
+              fprintf(out, "\tmovl \t%s(%%rip), %%eax\n"
+                           "\tmovl \t%s(%%rip), %%edx\n"
+                           "\taddl \t%%eax, %%edx\n"
+                           "\tmovl \t%%edx, %s(%%rip)\n", tac->op1->text, tac->op2->text, tac->res->text);
+              break;
+        default:
+            break;
+        } //switch
+
+    } //for
 }

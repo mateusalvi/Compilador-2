@@ -12,8 +12,8 @@
 #             INF - UFRGS             #
 #######################################
 
-etapa5: y.tab.o lex.yy.o hashtable.o ast.o semantic.o tacs.o main.o
-	gcc -o etapa5 y.tab.o lex.yy.o hashtable.o ast.o semantic.o tacs.o main.o
+etapa6: y.tab.o lex.yy.o hashtable.o ast.o semantic.o tacs.o main.o
+	gcc -o etapa6 y.tab.o lex.yy.o hashtable.o ast.o semantic.o tacs.o main.o
 
 main.o: main.c
 	gcc -c main.c
